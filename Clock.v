@@ -6,8 +6,9 @@ module WallClock(
 	//inputs - these will depend on your board's constraint files
     input CLK100MHZ,
     input wire RESET_BTN,
-    input wire INC_MIN,//HALALAKOJDFIOHASJDF
+    input wire INC_MIN,
     input wire INC_HOUR,
+    input wire [7:0] pwm_in,
 	//outputs - these will depend on your board's constraint files
     output wire [5:0] LED,
     output wire [7:0] SevenSegment,
@@ -15,7 +16,8 @@ module WallClock(
 );
 
 	//Add the reset
-	wire ResetButton; //Will be the debounced value
+	wire ResetButton;
+	Delay_Reset Reset_delayed(CLK100MHZ, RESET_BTN, ResetButton);
 	//Add and debounce the buttons
 	wire MButton; //Will be the debounced value?
 	wire HButton; //Will be the debounced value?
@@ -33,8 +35,7 @@ module WallClock(
 	// Instantiate Debounce modules here
 	Debounce Min_Debounce(CLK100MHZ, INC_MIN, MButton);
 	Debounce Hour_Debounce(CLK100MHZ, INC_HOUR, HButton);
-	Debounce Reset_Debounce(CLK100MHZ, RESET_BTN, ResetButton);
-
+	
 	// registers for storing the time
     reg [3:0]hours1=4'd0;
 	reg [3:0]hours2=4'd0;
@@ -46,6 +47,7 @@ module WallClock(
 	SS_Driver SS_Driver1(
 		CLK100MHZ, ResetButton,
 		hours2, hours1, mins2, mins1, // Used temporary test values before adding hours2, hours1, mins2, mins1
+		pwm_in,
 		SegmentDrivers, SevenSegment
 	);
     

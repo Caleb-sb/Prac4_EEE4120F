@@ -1,4 +1,4 @@
-# Prac4_EEE4120F
+# Prac 4
 For this practical,  it is important to complete the tutorial in order to get acquainted with the tools required to complete the practical.
 It is also imperative that you read through the wiki.  Operation of Vivado can be intimidating at first use.  The Wiki has been carefully written to include all you need for the practicals.
 

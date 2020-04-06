@@ -23,9 +23,13 @@ module PWM(
     input [7:0] pwm_in, 
     output reg pwm_out 	//output of PWM	
 );
-	
+
+reg [7:0] Counter; // Period of 2.55us
+
 always @(posedge clk) begin
-    //Write your implementation here	
+    //Write your implementation here
+    pwm_out <= (pwm_in > Counter) ? 1 : 0;   
+    Counter <= Counter + 1'b1;
 end
 	
 endmodule
