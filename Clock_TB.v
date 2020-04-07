@@ -5,14 +5,16 @@ module clock_tb();
   reg clk, reset;
 
   // values from testvectors
-  reg CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR, [7:0] pwm_in;
+  reg CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR,
+  [7:0] pwm_in, wire [5:0] LED_Expected,
+  [7:0] SevenSegment_Expected, [7:0] SegmentDrivers_Expected;
 
   // output of circuit
   wire [5:0] LED, [7:0] SevenSegment, [7:0] SegmentDrivers;
 
   // Set up testvector registers
   reg [31:0] vectornum, errors;
-  reg [3:0] testvectors[10000:0]; // array of testvectors
+  reg [33:0] testvectors[10000:0]; // array of testvectors (each one is size 34 bit)
   reg halfPeriod = 5;
 
   // Instantiate the device under test
@@ -42,13 +44,17 @@ module clock_tb();
       reset = 1; #27; reset = 0; // Apply reset wait
     end
 
-    // apply test vectors on rising edge of clk
-    // apply 1ns delay so that inputs don't change same time with clock
-    always @(posedge clk)
-      begin
-        #1; {CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR,
-        pwm_in, LED, SevenSegment, SegmentDrivers} = testvectors[vectornum];
-      end
+  // apply test vectors on rising edge of clk
+  // apply 1ns delay so that inputs don't change same time with clock
+  always @(posedge clk)
+    begin
+      #1; {CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR,
+      pwm_in, LED_Expected, SevenSegment_Expected,
+      SegmentDrivers_Expected} = testvectors[vectornum];
+    end
+
+
+
 
 
 end module
