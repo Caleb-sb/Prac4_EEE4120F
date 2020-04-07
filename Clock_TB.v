@@ -42,4 +42,13 @@ module clock_tb();
       reset = 1; #27; reset = 0; // Apply reset wait
     end
 
+    // apply test vectors on rising edge of clk
+    // apply 1ns delay so that inputs don't change same time with clock
+    always @(posedge clk)
+      begin
+        #1; {CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR,
+        pwm_in, LED, SevenSegment, SegmentDrivers} = testvectors[vectornum];
+      end
+
+
 end module
