@@ -53,6 +53,29 @@ module clock_tb();
       SegmentDrivers_Expected} = testvectors[vectornum];
     end
 
+  // check results on falling edge of clk
+  // results must be checked here before next clock rise (where next test will happen)
+  always @(negedge clk)
+    if (~reset) // skip during reset
+      begin
+        if (LED !== LED_Expected || SevenSegment !== SevenSegment_Expected || SegmentDrivers !== SegmentDrivers_Expected)
+          begin
+            // Now display details about the error and increment error counter
+            $display("Error: inputs = %b", {CLK100MHZ, RESET_BTN, INC_MIN, INC_HOUR, pwm_in});
+            $display(" outputs = %b (%b exp)", LED, LED_Expected);
+            $display(" outputs = %b (%b exp)", SevenSegment, SevenSegment_Expected);
+            $display(" outputs = %b (%b exp)", SegmentDrivers, SegmentDrivers_Expected);
+            errors = errors + 1;
+          end
+
+        // increment array index and read next testvector
+        vectornum = vectornum + 1;
+        if (testvectors[vectornum] === 4'bx) // might have issue here
+          begin
+            $display("%d tests completed with %d errors", vectornum, errors);
+            $finish; // End simulation
+          end
+      end
 
 
 
