@@ -71,6 +71,30 @@ module WallClock(
 		  hours2  <= 0;
 		  secs    <= 0;
 		end else begin
+			if (MButton) begin
+				mins1 <= mins1+1;
+				if (mins1+1 > 4'd9) begin
+					mins1 <= 4'd0;
+					mins2 <= mins2 + 4'd1;
+					if (mins2+1 > 4'd5) begin
+						mins2 <= 4'd0;
+					end
+				end
+			end
+		end else begin
+			if (HButton) begin
+				hours1 <= hours1+1;
+				if (hour1+1 > max_hour1) begin
+					hours1 <= 4'd0;
+					CurrentState <= NextState;
+					hours2 <= hours2 + 4'd1;
+					if (hours2+1 > 4'd2) begin
+						hours2 <= 4'd0;
+						CurrentState <= NextState;
+					end
+				end
+			end
+		end else begin
             if(Count == 0) begin
 
               if (secs < 6'b111011) begin
