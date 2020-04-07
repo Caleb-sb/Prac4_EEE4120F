@@ -13,6 +13,7 @@ module clock_tb();
   // Set up testvector registers
   reg [31:0] vectornum, errors;
   reg [3:0] testvectors[10000:0]; // array of testvectors
+  reg halfPeriod = 5;
 
   // Instantiate the device under test
   WallClock DUT(
@@ -31,5 +32,14 @@ module clock_tb();
     begin // clock signal with period = 2 * halfPeriod
       clk = 1; #halfPeriod; clk = 0; #halfPeriod;
     end
-    
+
+
+  initial // Will execute at the beginning once
+    begin
+      // NB: ClockTestVector.tv must be written in hexadecimal
+      $readmemb("ClockTestVector.tv", testvectors); // Read vectors
+      vectornum = 0; errors = 0; // Initialize
+      reset = 1; #27; reset = 0; // Apply reset wait
+    end
+
 end module
