@@ -14,4 +14,22 @@ module clock_tb();
   reg [31:0] vectornum, errors;
   reg [3:0] testvectors[10000:0]; // array of testvectors
 
+  // Instantiate the device under test
+  WallClock DUT(
+    .CLK100MHZ(CLK100MHZ),
+    .RESET_BTN(RESET_BTN),
+    .INC_MIN(INC_MIN),
+    .INC_HOUR(INC_HOUR),
+    .pwm_in(pwm_in),
+    .LED(LED),
+    .SevenSegment(SevenSegment),
+    .SegmentDrivers(SegmentDrivers)
+    );
+
+  // Generate Clock
+  always
+    begin // clock signal with period = 2 * halfPeriod
+      clk = 1; #halfPeriod; clk = 0; #halfPeriod;
+    end
+    
 end module
