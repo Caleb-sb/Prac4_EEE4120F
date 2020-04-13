@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module SS_Driver(
     input Clk, Reset,
     input [3:0] BCD3, BCD2, BCD1, BCD0, // Binary-coded decimal input

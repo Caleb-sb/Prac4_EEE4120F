@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module BCD_Decoder(
     input [3:0]BCD,
     output reg [6:0]SevenSegment

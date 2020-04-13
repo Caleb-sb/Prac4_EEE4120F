@@ -1,10 +1,10 @@
+`timescale 1ns / 1ps
 module Debounce(
     input clk,
     input btn,
     output reg out_reg
 );
 
-reg previous_state; // What is this for??
 reg [20:0]Count; //assume count is null on FPGA configuration
 
 //--------------------------------------------

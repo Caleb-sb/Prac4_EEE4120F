@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module Delay_Reset(
     input Clk, // Input clock signal
     input BTNS, // Input reset signal (external button)
@@ -5,8 +6,8 @@ module Delay_Reset(
 );
 
 //------------------------------------------------------------------------------
-reg LocalReset; 
-reg [22:0] Count;
+reg LocalReset=0; 
+reg [22:0] Count=23'b0;
 // Assume Count is null on FPGA configuration
 
 //------------------------------------------------------------------------------

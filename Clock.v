@@ -16,11 +16,11 @@ module WallClock(
 );
 
 	//Add the reset
-	wire ResetButton;
+	wire ResetButton=0;
 	Delay_Reset Reset_delayed(CLK100MHZ, RESET_BTN, ResetButton);
 	//Add and debounce the buttons
-	wire MButton; 
-	wire HButton; 
+	wire MButton=0; 
+	wire HButton=0; 
 	reg previous_hour = 0; //Created to check for rising edge
 	reg previous_min = 0; //Created to check for rising edge
 	
@@ -53,7 +53,7 @@ module WallClock(
 		SegmentDrivers, SevenSegment
 	);
     
-    reg [26:0]Count;
+    reg [26:0]Count = 27'b0;
     
     reg [5:0]secs = 6'b000000;
     assign LED = secs;
@@ -96,6 +96,7 @@ module WallClock(
 	    if (~HButton) previous_hour <= 0;
 	    
         if(Count == 0) begin
+            $display("%d%d : %d%d : %d",hours2,hours1,mins2,mins1, secs);
             if (secs < 6'b111011) begin
                 secs <= secs + 1'b1;
             end
@@ -121,9 +122,7 @@ module WallClock(
                 end
             end
 		 end
-    Count <= (Count <=100000000) ? Count+1 : 0;
-    
-		
+    Count <= (Count <=10) ? Count+1 : 0;		
 		
 	// NextState selection placed here
 	// to avoid the dreaded inferred latch
