@@ -44,6 +44,9 @@ module WallClock(
 	reg [3:0]hours2=4'd0;
 	reg [3:0]mins1=4'd0;
 	reg [3:0]mins2=4'd0;
+	
+	// register for speed of the clock
+	integer CountLimit = 100000000;
     
 	//Initialize seven segment
 	// You will need to change some signals depending on you constraints
@@ -123,7 +126,7 @@ module WallClock(
                 end
             end
 		 end
-    Count <= (Count <=25000) ? Count+1 : 0;		
+		Count <= (Count <= CountLimit) ? Count+1 : 0;		
 		
 	// NextState selection placed here
 	// to avoid the dreaded inferred latch
