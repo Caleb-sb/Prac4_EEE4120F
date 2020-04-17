@@ -1,27 +1,14 @@
 # Prac 4
-For this practical,  it is important to complete the tutorial in order to get acquainted with the tools required to complete the practical.
-It is also imperative that you read through the wiki.  Operation of Vivado can be intimidating at first use.  The Wiki has been carefully written to include all you need for the practicals.
+A state machine implementation of a WallClock on an FPGA with Verilog.
 
-For the prac manual, see [http://ocw.ee.uct.ac.za/courses/EEE4120F/Practicals.html](the course practicals page)
-The Vivado Wiki page can be found [http://wiki.ee.uct.ac.za/Xilinx_Vivado](here).
+For a demo video of rubric functionality, please see: https://youtu.be/QmgJPbyS560
 
-## Files
-* TLM
+##Test Bench
+If you want to run the test bench on Vivado, it might be better to increase the increment speed of seconds as well as the speed of the SS_Driver to update the digits of the
+seven segment display faster. This is to help complete a full cycle of the test bench a bit faster.
 
-  The top level module, called "Clock.v" in the source files on GitHub, contains the primary logic for your wall clock and allows you to implement I/O and other modules.
-  It's important you leave the signals and registers as they are in this file, as this is what will be used in the automatic testbenches to mark your implementation.
-* Delay_Reset
+Note also: The output of the testbench is exactly what the SevenSegment display will receive and is translated into decimal digits. Therefore, at rollover times (ie:23:59),
+the TestBench will refresh only as fast as the SS_Driver refreshes that particular digit. This means the output will change as 23:59, 03:59, 00:59, 00:09, 00:00 since
+that is the order that the SS_Driver updates digits.
 
-   It's also useful as many components require a set up time. So by using a delayed reset signal, we can cater for reset times of peripherals.
-* Seven-Segment Driver
-
-   This module takes 4 BCD values and displays them on the seven segment display.
-* Decoder
-
-    Used by the Seven-Segment Driver to decode decimal to the appropriate cathode pins.
-* Debounce
-
-   A debounce module you'll need to implement in order to debounce button presses.
-* PWM
-
-   A module you'll need to implement in order to give the seven segment displays changing brightness. This can be tricky, it's suggested you leave it for last.
+When simulating the project itself, however, it is sufficient to only change the speed of the seconds as the register contents are directly visible in the waveform window.

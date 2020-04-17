@@ -16,15 +16,15 @@ module WallClock(
 );
 
 	//Add the reset
-	wire ResetButton=0;
-	Delay_Reset Reset_delayed(CLK100MHZ, RESET_BTN, ResetButton);
+	wire ResetButton;
 	//Add and debounce the buttons
-	wire MButton=0; 
-	wire HButton=0; 
+	wire MButton; 
+	wire HButton; 
 	reg previous_hour = 0; //Created to check for rising edge
 	reg previous_min = 0; //Created to check for rising edge
 	
-	reg[1:0] CurrentState, NextState;
+	reg[1:0] CurrentState = 2'b0;
+	reg[1:0] NextState;
 	
 	//Assigning numerical values to states
 	parameter [1:0] post_zero = 0;
@@ -37,6 +37,7 @@ module WallClock(
 	// Instantiate Debounce modules here
 	Debounce Min_Debounce(CLK100MHZ, INC_MIN, MButton);
 	Debounce Hour_Debounce(CLK100MHZ, INC_HOUR, HButton);
+	Debounce Reset_Debounce(CLK100MHZ, RESET_BTN, ResetButton);
 	
 	// registers for storing the time
     reg [3:0]hours1=4'd0;
@@ -96,7 +97,7 @@ module WallClock(
 	    if (~HButton) previous_hour <= 0;
 	    
         if(Count == 0) begin
-            $display("%d%d : %d%d : %d",hours2,hours1,mins2,mins1, secs);
+            //$display("%d%d : %d%d : %d",hours2,hours1,mins2,mins1, secs);
             if (secs < 6'b111011) begin
                 secs <= secs + 1'b1;
             end
@@ -122,7 +123,7 @@ module WallClock(
                 end
             end
 		 end
-    Count <= (Count <=10) ? Count+1 : 0;		
+    Count <= (Count <=25000) ? Count+1 : 0;		
 		
 	// NextState selection placed here
 	// to avoid the dreaded inferred latch

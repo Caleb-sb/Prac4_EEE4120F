@@ -5,7 +5,8 @@ module Debounce(
     output reg out_reg
 );
 
-reg [20:0]Count; //assume count is null on FPGA configuration
+reg [20:0]Count = 21'b0; //assume count is null on FPGA configuration
+
 
 //--------------------------------------------
 always @(posedge clk) begin

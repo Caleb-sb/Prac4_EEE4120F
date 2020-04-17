@@ -3,10 +3,9 @@ module SS_Driver(
     input Clk, Reset,
     input [3:0] BCD3, BCD2, BCD1, BCD0, // Binary-coded decimal input
     input [7:0] pwm_in,
-    output reg [7:0] SegmentDrivers, // Digit drivers (active low)
+    output reg [7:0] SegmentDrivers = 8'hF7, // Digit drivers (active low)
     output reg [7:0] SevenSegment // Segments (active low)
 );
-
 
 // Make use of a subcircuit to decode the BCD to seven-segment (SS)
 wire [6:0]SS[3:0];
@@ -18,7 +17,7 @@ BCD_Decoder BCD_Decoder3 (BCD3, SS[3]);
 wire pwm;
 PWM sw_pwm(Clk, pwm_in, pwm);
 // Counter to reduce the 100 MHz clock to 762.939 Hz (100 MHz / 2^17)
-reg [16:0]Count;
+reg [16:0]Count =17'b0; //was [16:0]
 
 // Scroll through the digits, switching one on at a time
 always @(posedge Clk) begin
