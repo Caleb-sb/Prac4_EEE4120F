@@ -7,7 +7,8 @@ module Delay_Reset(
 
 //------------------------------------------------------------------------------
 reg LocalReset; 
-reg [22:0] Count;
+//Initialise to fix the simulation
+reg [22:0] Count = 23'b11111111111111111111111; 
 // Assume Count is null on FPGA configuration
 
 //------------------------------------------------------------------------------

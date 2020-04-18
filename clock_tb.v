@@ -1,21 +1,16 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+
 // Create Date: 04/13/2020 04:36:03 PM
 // Design Name: 
 // Module Name: clock_tb
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
+
+// Additional Comments: It should be noted that the output is exactly what the
+//      SS Display would receive. Therefore, at rollover, the digits can only update 
+//      as fast as the SS_Driver updates each digit of the SevenSegment Display.
+
+// Speed of the wallclock can be adjusted in the Clock.v file by changing CountLimit
+//     variable
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -56,8 +51,8 @@ WallClock dut(
 
 initial begin
 
-    $display("\t||\t\t  Time  \t\t|      Wallclock    ||");
-    $display("\t--------------------------------------------------------------------");
+    $display("\t||\t\t  Time  \t\t|      Wallclock     ||");
+    $display("\t-----------------------------------------------");
     $monitor("\t||%d\t|\t%d%d : %d%d : %d ||", $time, hrs2, hrs1, min2, min1, LED);
     
     CLK100MHZ = 0;

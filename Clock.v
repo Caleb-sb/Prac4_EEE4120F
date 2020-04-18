@@ -15,9 +15,12 @@ module WallClock(
     output wire [7:0] SegmentDrivers
 );
 
-	//Add the reset
+	//Add the reset and Delay
 	wire ResetButton;
-	//Add and debounce the buttons
+	//This negates the need for Debouncing Reset Button
+	//since Reset signal is localised in the module
+	Delay_Reset reset_delayed(CLK100MHZ, RESET_BTN, ResetButton); 
+	//Add the buttons
 	wire MButton; 
 	wire HButton; 
 	reg previous_hour = 0; //Created to check for rising edge
@@ -37,7 +40,7 @@ module WallClock(
 	// Instantiate Debounce modules here
 	Debounce Min_Debounce(CLK100MHZ, INC_MIN, MButton);
 	Debounce Hour_Debounce(CLK100MHZ, INC_HOUR, HButton);
-	Debounce Reset_Debounce(CLK100MHZ, RESET_BTN, ResetButton);
+	//Debounce Reset_Debounce(CLK100MHZ, RESET_BTN, ResetButton);
 	
 	// registers for storing the time
     reg [3:0]hours1=4'd0;
@@ -46,7 +49,7 @@ module WallClock(
 	reg [3:0]mins2=4'd0;
 	
 	// register for speed of the clock
-	integer CountLimit = 100000000;
+	reg [26:0] CountLimit = 524288; //Must be Greater than 2^17 for testbench
     
 	//Initialize seven segment
 	// You will need to change some signals depending on you constraints
