@@ -3,14 +3,14 @@ A state machine implementation of a WallClock on an FPGA with Verilog.
 
 For a demo video of rubric functionality, please see: https://youtu.be/QmgJPbyS560
 
-##Adding to Vivado
+## Adding to Vivado
 After downloading and extracting, add all .v files to Design Sources except for clock_tb.v.
 Add the constr.xdc file to Constraints and clock_tb.v file to Simulation Sources.
 
-##Changing Wall Clock speed
+## Changing Wall Clock speed
 The speed of the clock can be changed in Clock.v by changing CountLimit variable
 
-##Test Bench
+## Test Bench
 If you want to run the test bench on Vivado, it might be better to increase the speed of the WallClock with CountLimit as well as the speed of the SS_Driver to update the digits of the
 seven segment display faster. This is to help complete a full cycle of the test bench a bit faster.
 
