@@ -9,7 +9,7 @@
 module PWM(
     input clk,          //input clock
     input [7:0] pwm_in, //input from switches
-    output pwm_out      //output of PWM
+    output reg pwm_out      //output of PWM
 );
 
 reg [7:0] Counter;      // Period of 2.55us

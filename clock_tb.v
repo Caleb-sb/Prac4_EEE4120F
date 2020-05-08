@@ -4,7 +4,7 @@
 // Module Name :   clock_tb
 // Function    :   Testbench which translates data received by SS Display and
 //                 displays it
-// Coder       :   Caleb Bredekamp [BRDCAL003]
+// Coder       :   Caleb Bredekamp [BRDCAL003] Michael Du Preez [DPRMIC007]
 // Comments    :   It should be noted that the output is exactly what the SS
 //                 Display would receive. Therefore, at rollover, the digits can
 //                 only update as fast as the SS_Driver updates each digit of the

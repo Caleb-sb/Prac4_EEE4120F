@@ -51,7 +51,7 @@ module WallClock(
 
     // Register to change speed of the clock: must be > 2^17 for testbench if
     // leaving SS_driver timing unchanged
-    reg [26:0] CountLimit = 524288;
+    reg [26:0] CountLimit = 50000000;
 
     //Initialize seven segment
     SS_Driver SS_Driver1(

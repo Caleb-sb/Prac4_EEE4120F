@@ -11,7 +11,7 @@
 module Debounce(
     input clk   ,       //The 100MHZ clock
     input btn   ,       //The button to be debounced
-    output out_reg      //The debounced output
+    output reg out_reg  //The debounced output
 );
 
 reg [20:0]Count = 21'b0; //assume count is null on FPGA configuration
